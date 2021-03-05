@@ -1,0 +1,1403 @@
+openapi: 3.0.3
+info:
+  license:
+    name: GNU Lesser General Public License v3.0
+    url: https://www.gnu.org/licenses/lgpl-3.0.en.html
+  title: effx API
+  version: 2.1.0
+servers:
+- description: Production server (uses live data)
+  url: https://api.effx.io/v2
+- description: Post production server (internal use only)
+  url: https://post.api.effx.io/v2
+paths:
+  /config/lint:
+    post:
+      description: Lints effx configuration objects
+      operationId: config-lint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationFile'
+        required: true
+      responses:
+        "204":
+          description: successful request that has no response message
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: request is invalid
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: internal server error
+      tags:
+      - config
+  /config:
+    put:
+      description: Creates/Updates effx configuration objects. A resource's name is
+        used as its unique identifier.
+      operationId: config-put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationFile'
+        required: true
+      responses:
+        "204":
+          description: successful request that has no response message
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: request is invalid
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: api key is not valid
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: internal server error
+      tags:
+      - config
+  /services:
+    get:
+      description: retrieves a list of services
+      operationId: services-get
+      parameters:
+      - description: Your API Key
+        explode: false
+        in: header
+        name: X-Effx-Api-Key
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: How many records to retrieve per request.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 50
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: The number of records to skip. Used for pagination through a
+          list of services.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: Expected response to a valid request
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: request is invalid
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: api key is not valid
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: internal server error
+      tags:
+      - services
+    put:
+      description: Creates/Updates effx service objects. Service names are used as
+        unique identifiers.
+      operationId: services-put
+      parameters:
+      - description: Your API Key
+        explode: false
+        in: header
+        name: X-Effx-Api-Key
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceConfiguration'
+        required: true
+      responses:
+        "204":
+          description: successful request that has no response message
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: request is invalid
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: api key is not valid
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: internal server error
+      tags:
+      - services
+  /detected_services:
+    put:
+      description: allows a service to be detected. used to identify services that
+        do not have an effx.yaml.
+      operationId: detected-services-put
+      parameters:
+      - description: Your API Key
+        explode: false
+        in: header
+        name: X-Effx-Api-Key
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetectedServicesPayload'
+        required: true
+      responses:
+        "204":
+          description: successful request that has no response message
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: request is invalid
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: api key is not valid
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: internal server error
+      tags:
+      - services
+  /events:
+    post:
+      description: Create an event in effx for use in the event feed.
+      operationId: events-post
+      parameters:
+      - description: Your API Key
+        explode: false
+        in: header
+        name: X-Effx-Api-Key
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEventPayload'
+        required: true
+      responses:
+        "204":
+          description: successful request that has no response message
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: request is invalid
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: api key is not valid
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: internal server error
+      tags:
+      - events
+  /teams:
+    get:
+      description: retrieves a list of teams
+      operationId: teams-get
+      parameters:
+      - description: Your API Key
+        explode: false
+        in: header
+        name: X-Effx-Api-Key
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: How many records to retrieve per request.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 50
+          maximum: 100
+          minimum: 1
+          type: integer
+        style: form
+      - description: The number of records to skip. Used for pagination through a
+          list of services.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+          description: Expected response to a valid request
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: request is invalid
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: api key is not valid
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: internal server error
+      tags:
+      - teams
+    put:
+      description: Creates/Updates effx teams objects. Team names are used as unique
+        identifiers.
+      operationId: teams-put
+      parameters:
+      - description: Your API Key
+        explode: false
+        in: header
+        name: X-Effx-Api-Key
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamConfiguration'
+        required: true
+      responses:
+        "204":
+          description: successful request that has no response message
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: request is invalid
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: api key is not valid
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: internal server error
+      tags:
+      - teams
+  /teams/{teamId}:
+    get:
+      operationId: getTeamById
+      parameters:
+      - description: Your API Key
+        explode: false
+        in: header
+        name: X-Effx-Api-Key
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The id or slug of the team to retrieve
+        explode: false
+        in: path
+        name: teamId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+          description: Expected response to a valid request
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: request is invalid
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: api key is not valid
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: could not find requested record
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: internal server error
+      summary: Info for a specific team
+      tags:
+      - teams
+  /services/{serviceId}:
+    get:
+      operationId: getServiceById
+      parameters:
+      - description: Your API Key
+        explode: false
+        in: header
+        name: X-Effx-Api-Key
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The id or slug of the service to retrieve
+        explode: false
+        in: path
+        name: serviceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+          description: Expected response to a valid request
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: request is invalid
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: api key is not valid
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: could not find requested record
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: internal server error
+      summary: Info for a specific service
+      tags:
+      - services
+components:
+  parameters:
+    ApiKey:
+      description: Your API Key
+      explode: false
+      in: header
+      name: X-Effx-Api-Key
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+    QueryLimit:
+      description: How many records to retrieve per request.
+      explode: true
+      in: query
+      name: limit
+      required: false
+      schema:
+        default: 50
+        maximum: 100
+        minimum: 1
+        type: integer
+      style: form
+    QueryOffset:
+      description: The number of records to skip. Used for pagination through a list
+        of services.
+      explode: true
+      in: query
+      name: offset
+      required: false
+      schema:
+        default: 0
+        minimum: 0
+        type: integer
+      style: form
+  responses:
+    NoContent:
+      description: successful request that has no response message
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: request is invalid
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: could not find requested record
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: internal server error
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: api key is not valid
+  schemas:
+    Error:
+      properties:
+        message:
+          type: string
+      required:
+      - message
+      type: object
+    Version:
+      example: effx/v1
+      pattern: ^effx\/v1$
+      type: string
+    Link:
+      additionalProperties: false
+      example:
+        label: how to label the link
+        url: https://app.effx.com
+      properties:
+        label:
+          example: how to label the link
+          type: string
+        url:
+          example: https://app.effx.com
+          format: uri
+          type: string
+      required:
+      - url
+      type: object
+    LinkGroup:
+      additionalProperties: false
+      example:
+        label: Dashboards
+        links:
+        - label: datadog
+          url: https://datadoghq.com/some/link
+        - label: newrelic
+          url: https://newrelic.com/appid/dashboard
+      properties:
+        label:
+          description: A value to display that the top of the group of links
+          example: Dashboards
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          type: array
+      required:
+      - label
+      - links
+      type: object
+    ContactInformation:
+      additionalProperties: false
+      example:
+        issueTracker:
+          label: how to label the link
+          url: https://app.effx.com
+        chat:
+          label: how to label the link
+          url: https://app.effx.com
+        onCall:
+          label: how to label the link
+          url: https://app.effx.com
+        email: engineering@effx.com
+      properties:
+        email:
+          example: engineering@effx.com
+          format: email
+          type: string
+        onCall:
+          $ref: '#/components/schemas/Link'
+        chat:
+          $ref: '#/components/schemas/Link'
+        issueTracker:
+          $ref: '#/components/schemas/Link'
+      type: object
+    Tags:
+      additionalProperties:
+        maxLength: 63
+        pattern: ^[a-zA-Z0-9\.\-_\/]+$
+        type: string
+      example:
+        go: 1.13.5
+        tier: "0"
+        group: auth
+      type: object
+    Annotations:
+      additionalProperties:
+        type: string
+      description: Attach metadata to resources like teams and services
+      example:
+        effx.io/owned-by: authentication team
+        effx.io/reports-to: core-services
+      type: object
+    ManualDependency:
+      additionalProperties: false
+      description: An explicit dependency on another entity
+      properties:
+        kind:
+          default: service
+          description: The kind of entity to depend on. Defaults to 'service'
+          pattern: ^(S|s)ervice$
+          type: string
+        name:
+          description: Matches a dependency by the kind's name
+          type: string
+      type: object
+    Dependencies:
+      additionalProperties: false
+      description: Declare dependencies on other services
+      example:
+        manual:
+        - kind: service
+          name: arrakis
+      properties:
+        manual:
+          items:
+            $ref: '#/components/schemas/ManualDependency'
+          type: array
+      type: object
+    ConfigurationFile:
+      additionalProperties: false
+      example:
+        annotations:
+          effx.io/owned-by: authentication team
+          effx.io/reports-to: core-services
+        fileContents: fileContents
+        tags:
+          go: 1.13.5
+          tier: "0"
+          group: auth
+      properties:
+        fileContents:
+          description: An Effx Yaml file serialized into a string
+          type: string
+        tags:
+          additionalProperties:
+            maxLength: 63
+            pattern: ^[a-zA-Z0-9\.\-_\/]+$
+            type: string
+          example:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          description: Attach metadata to resources like teams and services
+          example:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          type: object
+      required:
+      - fileContents
+      type: object
+    ServiceConfiguration:
+      additionalProperties: false
+      example:
+        kind: Service
+        version: effx/v1
+        spec:
+          linkGroups:
+          - label: Dashboards
+            links:
+            - label: datadog
+              url: https://datadoghq.com/some/link
+            - label: newrelic
+              url: https://newrelic.com/appid/dashboard
+          - label: Dashboards
+            links:
+            - label: datadog
+              url: https://datadoghq.com/some/link
+            - label: newrelic
+              url: https://newrelic.com/appid/dashboard
+          contact:
+            issueTracker:
+              label: how to label the link
+              url: https://app.effx.com
+            chat:
+              label: how to label the link
+              url: https://app.effx.com
+            onCall:
+              label: how to label the link
+              url: https://app.effx.com
+            email: engineering@effx.com
+          name: the canonical name of the service
+          description: something to describe what this service does
+          annotations:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          tags:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+          dependencies:
+            manual:
+            - kind: service
+              name: arrakis
+      properties:
+        version:
+          example: effx/v1
+          pattern: ^effx\/v1$
+          type: string
+        kind:
+          example: Service
+          pattern: ^(S|s)ervice$
+          type: string
+        spec:
+          $ref: '#/components/schemas/ServiceConfiguration_spec'
+      required:
+      - kind
+      - spec
+      - version
+      type: object
+    DetectedServicesPayload:
+      additionalProperties: false
+      example:
+        issueTracker:
+          label: how to label the link
+          url: https://app.effx.com
+        linkGroups:
+        - label: Dashboards
+          links:
+          - label: datadog
+            url: https://datadoghq.com/some/link
+          - label: newrelic
+            url: https://newrelic.com/appid/dashboard
+        - label: Dashboards
+          links:
+          - label: datadog
+            url: https://datadoghq.com/some/link
+          - label: newrelic
+            url: https://newrelic.com/appid/dashboard
+        chat:
+          label: how to label the link
+          url: https://app.effx.com
+        name: name
+        description: description
+        annotations:
+          effx.io/owned-by: authentication team
+          effx.io/reports-to: core-services
+        onCall:
+          label: how to label the link
+          url: https://app.effx.com
+        sourceName: sourceName
+        email: engineering@effx.com
+        tags:
+          go: 1.13.5
+          tier: "0"
+          group: auth
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        sourceName:
+          type: string
+        email:
+          example: engineering@effx.com
+          format: email
+          type: string
+        onCall:
+          $ref: '#/components/schemas/Link'
+        chat:
+          $ref: '#/components/schemas/Link'
+        issueTracker:
+          $ref: '#/components/schemas/Link'
+        linkGroups:
+          items:
+            $ref: '#/components/schemas/LinkGroup'
+          type: array
+        tags:
+          additionalProperties:
+            maxLength: 63
+            pattern: ^[a-zA-Z0-9\.\-_\/]+$
+            type: string
+          example:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          description: Attach metadata to resources like teams and services
+          example:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          type: object
+      required:
+      - name
+      type: object
+    CreateEventPayload:
+      additionalProperties: false
+      example:
+        service_name: service_name
+        message: message
+        title: title
+        actions:
+        - level: info
+          name: name
+          url: https://openapi-generator.tech
+        - level: info
+          name: name
+          url: https://openapi-generator.tech
+        timestamp_milliseconds: 1577836800000
+        tags:
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        message:
+          type: string
+        title:
+          type: string
+        timestamp_milliseconds:
+          description: the timestamp in milliseconds on which this event occurred.
+            must be greater than 01/01/2020. If not specified, it will default to
+            the timestamp on which the request was received.
+          format: int64
+          minimum: 1577836800000
+          type: integer
+        tags:
+          items:
+            $ref: '#/components/schemas/CreateEventPayload_tags'
+          type: array
+        actions:
+          items:
+            $ref: '#/components/schemas/CreateEventPayload_actions'
+          type: array
+        service_name:
+          description: the service's name that this event belongs to
+          type: string
+      required:
+      - message
+      - title
+      type: object
+    Team:
+      example:
+        contact:
+          issueTracker:
+            label: how to label the link
+            url: https://app.effx.com
+          chat:
+            label: how to label the link
+            url: https://app.effx.com
+          onCall:
+            label: how to label the link
+            url: https://app.effx.com
+          email: engineering@effx.com
+        name: authentication team
+        description: something to describe what this team does
+        annotations:
+          effx.io/owned-by: authentication team
+          effx.io/reports-to: core-services
+        id: id
+        slug: authentication-team
+        tags:
+          go: 1.13.5
+          tier: "0"
+          group: auth
+      properties:
+        id:
+          description: uuid of the team object
+          type: string
+        slug:
+          description: url safe string representation of the team's name
+          example: authentication-team
+          type: string
+        name:
+          example: authentication team
+          type: string
+        description:
+          example: something to describe what this team does
+          type: string
+        contact:
+          $ref: '#/components/schemas/ContactInformation'
+        tags:
+          additionalProperties:
+            maxLength: 63
+            pattern: ^[a-zA-Z0-9\.\-_\/]+$
+            type: string
+          example:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          description: Attach metadata to resources like teams and services
+          example:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          type: object
+      type: object
+    Service:
+      example:
+        linkGroups:
+        - label: Dashboards
+          links:
+          - label: datadog
+            url: https://datadoghq.com/some/link
+          - label: newrelic
+            url: https://newrelic.com/appid/dashboard
+        - label: Dashboards
+          links:
+          - label: datadog
+            url: https://datadoghq.com/some/link
+          - label: newrelic
+            url: https://newrelic.com/appid/dashboard
+        contact:
+          issueTracker:
+            label: how to label the link
+            url: https://app.effx.com
+          chat:
+            label: how to label the link
+            url: https://app.effx.com
+          onCall:
+            label: how to label the link
+            url: https://app.effx.com
+          email: engineering@effx.com
+        name: authentication service
+        description: something to describe what this service does
+        annotations:
+          effx.io/owned-by: authentication team
+          effx.io/reports-to: core-services
+        id: id
+        ownerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        slug: authentication-service
+        tags:
+          go: 1.13.5
+          tier: "0"
+          group: auth
+        dependencies:
+          manual:
+          - kind: service
+            name: arrakis
+      properties:
+        id:
+          description: uuid of the service object
+          type: string
+        slug:
+          description: url safe string representation of the service's name
+          example: authentication-service
+          type: string
+        name:
+          example: authentication service
+          type: string
+        description:
+          example: something to describe what this service does
+          type: string
+        contact:
+          $ref: '#/components/schemas/ContactInformation'
+        tags:
+          additionalProperties:
+            maxLength: 63
+            pattern: ^[a-zA-Z0-9\.\-_\/]+$
+            type: string
+          example:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          description: Attach metadata to resources like teams and services
+          example:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          type: object
+        linkGroups:
+          items:
+            $ref: '#/components/schemas/LinkGroup'
+          type: array
+        dependencies:
+          $ref: '#/components/schemas/Dependencies'
+        ownerId:
+          description: team id that owns this service.
+          format: uuid
+          nullable: true
+          type: string
+      type: object
+    Pagination:
+      example:
+        totalResults: 6
+        nextOffset: 0
+      properties:
+        nextOffset:
+          description: The offset to be used for the next request. When there are
+            no more records, this value will be null.
+          nullable: true
+          type: integer
+        totalResults:
+          description: The total number of records.
+          type: integer
+      type: object
+    TeamConfiguration:
+      additionalProperties: false
+      example:
+        kind: Team
+        version: effx/v1
+        spec:
+          contact:
+            issueTracker:
+              label: how to label the link
+              url: https://app.effx.com
+            chat:
+              label: how to label the link
+              url: https://app.effx.com
+            onCall:
+              label: how to label the link
+              url: https://app.effx.com
+            email: engineering@effx.com
+          name: authentication team
+          description: something to describe what this team does
+          annotations:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          tags:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+      properties:
+        version:
+          example: effx/v1
+          pattern: ^effx\/v1$
+          type: string
+        kind:
+          example: Team
+          pattern: ^(T|t)eam$
+          type: string
+        spec:
+          $ref: '#/components/schemas/TeamConfiguration_spec'
+      required:
+      - kind
+      - spec
+      - version
+      type: object
+    inline_response_200:
+      example:
+        pagination:
+          totalResults: 6
+          nextOffset: 0
+        services:
+        - linkGroups:
+          - label: Dashboards
+            links:
+            - label: datadog
+              url: https://datadoghq.com/some/link
+            - label: newrelic
+              url: https://newrelic.com/appid/dashboard
+          - label: Dashboards
+            links:
+            - label: datadog
+              url: https://datadoghq.com/some/link
+            - label: newrelic
+              url: https://newrelic.com/appid/dashboard
+          contact:
+            issueTracker:
+              label: how to label the link
+              url: https://app.effx.com
+            chat:
+              label: how to label the link
+              url: https://app.effx.com
+            onCall:
+              label: how to label the link
+              url: https://app.effx.com
+            email: engineering@effx.com
+          name: authentication service
+          description: something to describe what this service does
+          annotations:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          id: id
+          ownerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          slug: authentication-service
+          tags:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+          dependencies:
+            manual:
+            - kind: service
+              name: arrakis
+        - linkGroups:
+          - label: Dashboards
+            links:
+            - label: datadog
+              url: https://datadoghq.com/some/link
+            - label: newrelic
+              url: https://newrelic.com/appid/dashboard
+          - label: Dashboards
+            links:
+            - label: datadog
+              url: https://datadoghq.com/some/link
+            - label: newrelic
+              url: https://newrelic.com/appid/dashboard
+          contact:
+            issueTracker:
+              label: how to label the link
+              url: https://app.effx.com
+            chat:
+              label: how to label the link
+              url: https://app.effx.com
+            onCall:
+              label: how to label the link
+              url: https://app.effx.com
+            email: engineering@effx.com
+          name: authentication service
+          description: something to describe what this service does
+          annotations:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          id: id
+          ownerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          slug: authentication-service
+          tags:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+          dependencies:
+            manual:
+            - kind: service
+              name: arrakis
+      properties:
+        services:
+          items:
+            $ref: '#/components/schemas/Service'
+          type: array
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      type: object
+    inline_response_200_1:
+      example:
+        pagination:
+          totalResults: 6
+          nextOffset: 0
+        teams:
+        - contact:
+            issueTracker:
+              label: how to label the link
+              url: https://app.effx.com
+            chat:
+              label: how to label the link
+              url: https://app.effx.com
+            onCall:
+              label: how to label the link
+              url: https://app.effx.com
+            email: engineering@effx.com
+          name: authentication team
+          description: something to describe what this team does
+          annotations:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          id: id
+          slug: authentication-team
+          tags:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+        - contact:
+            issueTracker:
+              label: how to label the link
+              url: https://app.effx.com
+            chat:
+              label: how to label the link
+              url: https://app.effx.com
+            onCall:
+              label: how to label the link
+              url: https://app.effx.com
+            email: engineering@effx.com
+          name: authentication team
+          description: something to describe what this team does
+          annotations:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          id: id
+          slug: authentication-team
+          tags:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+      properties:
+        teams:
+          items:
+            $ref: '#/components/schemas/Team'
+          type: array
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      type: object
+    ServiceConfiguration_spec:
+      example:
+        linkGroups:
+        - label: Dashboards
+          links:
+          - label: datadog
+            url: https://datadoghq.com/some/link
+          - label: newrelic
+            url: https://newrelic.com/appid/dashboard
+        - label: Dashboards
+          links:
+          - label: datadog
+            url: https://datadoghq.com/some/link
+          - label: newrelic
+            url: https://newrelic.com/appid/dashboard
+        contact:
+          issueTracker:
+            label: how to label the link
+            url: https://app.effx.com
+          chat:
+            label: how to label the link
+            url: https://app.effx.com
+          onCall:
+            label: how to label the link
+            url: https://app.effx.com
+          email: engineering@effx.com
+        name: the canonical name of the service
+        description: something to describe what this service does
+        annotations:
+          effx.io/owned-by: authentication team
+          effx.io/reports-to: core-services
+        tags:
+          go: 1.13.5
+          tier: "0"
+          group: auth
+        dependencies:
+          manual:
+          - kind: service
+            name: arrakis
+      properties:
+        name:
+          example: the canonical name of the service
+          type: string
+        description:
+          example: something to describe what this service does
+          type: string
+        contact:
+          $ref: '#/components/schemas/ContactInformation'
+        linkGroups:
+          items:
+            $ref: '#/components/schemas/LinkGroup'
+          type: array
+        tags:
+          additionalProperties:
+            maxLength: 63
+            pattern: ^[a-zA-Z0-9\.\-_\/]+$
+            type: string
+          example:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          description: Attach metadata to resources like teams and services
+          example:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          type: object
+        dependencies:
+          $ref: '#/components/schemas/Dependencies'
+      required:
+      - contact
+      - name
+      type: object
+    CreateEventPayload_tags:
+      example:
+        value: value
+        key: key
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
+      type: object
+    CreateEventPayload_actions:
+      example:
+        level: info
+        name: name
+        url: https://openapi-generator.tech
+      properties:
+        level:
+          enum:
+          - info
+          - warn
+          - error
+          type: string
+        name:
+          type: string
+        url:
+          format: uri
+          type: string
+      required:
+      - level
+      - name
+      - url
+      type: object
+    TeamConfiguration_spec:
+      example:
+        contact:
+          issueTracker:
+            label: how to label the link
+            url: https://app.effx.com
+          chat:
+            label: how to label the link
+            url: https://app.effx.com
+          onCall:
+            label: how to label the link
+            url: https://app.effx.com
+          email: engineering@effx.com
+        name: authentication team
+        description: something to describe what this team does
+        annotations:
+          effx.io/owned-by: authentication team
+          effx.io/reports-to: core-services
+        tags:
+          go: 1.13.5
+          tier: "0"
+          group: auth
+      properties:
+        name:
+          example: authentication team
+          type: string
+        description:
+          example: something to describe what this team does
+          type: string
+        contact:
+          $ref: '#/components/schemas/ContactInformation'
+        tags:
+          additionalProperties:
+            maxLength: 63
+            pattern: ^[a-zA-Z0-9\.\-_\/]+$
+            type: string
+          example:
+            go: 1.13.5
+            tier: "0"
+            group: auth
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          description: Attach metadata to resources like teams and services
+          example:
+            effx.io/owned-by: authentication team
+            effx.io/reports-to: core-services
+          type: object
+      required:
+      - contact
+      - name
+      type: object
