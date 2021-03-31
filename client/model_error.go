@@ -23,7 +23,7 @@ type Error struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewError(message string) *Error {
+func NewError(message string, ) *Error {
 	this := Error{}
 	this.Message = message
 	return &this
@@ -39,7 +39,7 @@ func NewErrorWithDefaults() *Error {
 
 // GetMessage returns the Message field value
 func (o *Error) GetMessage() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}

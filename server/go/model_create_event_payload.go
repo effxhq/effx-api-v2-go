@@ -24,4 +24,6 @@ type CreateEventPayload struct {
 
 	// the service's name that this event belongs to
 	ServiceName string `json:"service_name,omitempty"`
+
+	Integration CreateEventPayloadIntegration `json:"integration,omitempty"`
 }

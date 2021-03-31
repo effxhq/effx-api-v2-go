@@ -13,7 +13,7 @@ import (
 	"log"
 	"net/http"
 
-	openapi "github.com/effxhq/effx-api-v2-go/client/go"
+	openapi "github.com/effxhq/effx-api-v2/generated/go/server/go"
 )
 
 func main() {

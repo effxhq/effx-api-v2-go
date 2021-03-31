@@ -96,6 +96,7 @@ Class | Method | HTTP request | Description
  - [ContactInformation](docs/ContactInformation.md)
  - [CreateEventPayload](docs/CreateEventPayload.md)
  - [CreateEventPayloadActions](docs/CreateEventPayloadActions.md)
+ - [CreateEventPayloadIntegration](docs/CreateEventPayloadIntegration.md)
  - [CreateEventPayloadTags](docs/CreateEventPayloadTags.md)
  - [Dependencies](docs/Dependencies.md)
  - [DetectedServicesPayload](docs/DetectedServicesPayload.md)

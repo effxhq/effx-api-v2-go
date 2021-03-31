@@ -24,7 +24,7 @@ type Link struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLink(url string) *Link {
+func NewLink(url string, ) *Link {
 	this := Link{}
 	this.Url = url
 	return &this
@@ -72,7 +72,7 @@ func (o *Link) SetLabel(v string) {
 
 // GetUrl returns the Url field value
 func (o *Link) GetUrl() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}

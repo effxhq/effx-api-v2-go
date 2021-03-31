@@ -1,4 +1,5 @@
 .gitignore
+.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -13,6 +14,7 @@ docs/ConfigurationFile.md
 docs/ContactInformation.md
 docs/CreateEventPayload.md
 docs/CreateEventPayloadActions.md
+docs/CreateEventPayloadIntegration.md
 docs/CreateEventPayloadTags.md
 docs/Dependencies.md
 docs/DetectedServicesPayload.md
@@ -39,6 +41,7 @@ model_configuration_file.go
 model_contact_information.go
 model_create_event_payload.go
 model_create_event_payload_actions.go
+model_create_event_payload_integration.go
 model_create_event_payload_tags.go
 model_dependencies.go
 model_detected_services_payload.go

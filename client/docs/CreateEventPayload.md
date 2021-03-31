@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Tags** | Pointer to [**[]CreateEventPayloadTags**](CreateEventPayloadTags.md) |  | [optional] 
 **Actions** | Pointer to [**[]CreateEventPayloadActions**](CreateEventPayloadActions.md) |  | [optional] 
 **ServiceName** | Pointer to **string** | the service&#39;s name that this event belongs to | [optional] 
+**Integration** | Pointer to [**CreateEventPayloadIntegration**](CreateEventPayload_integration.md) |  | [optional] 
 
 ## Methods
 
@@ -169,6 +170,31 @@ SetServiceName sets ServiceName field to given value.
 `func (o *CreateEventPayload) HasServiceName() bool`
 
 HasServiceName returns a boolean if a field has been set.
+
+### GetIntegration
+
+`func (o *CreateEventPayload) GetIntegration() CreateEventPayloadIntegration`
+
+GetIntegration returns the Integration field if non-nil, zero value otherwise.
+
+### GetIntegrationOk
+
+`func (o *CreateEventPayload) GetIntegrationOk() (*CreateEventPayloadIntegration, bool)`
+
+GetIntegrationOk returns a tuple with the Integration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIntegration
+
+`func (o *CreateEventPayload) SetIntegration(v CreateEventPayloadIntegration)`
+
+SetIntegration sets Integration field to given value.
+
+### HasIntegration
+
+`func (o *CreateEventPayload) HasIntegration() bool`
+
+HasIntegration returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
