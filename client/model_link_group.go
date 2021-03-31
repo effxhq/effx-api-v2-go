@@ -25,7 +25,7 @@ type LinkGroup struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLinkGroup(label string, links []Link) *LinkGroup {
+func NewLinkGroup(label string, links []Link, ) *LinkGroup {
 	this := LinkGroup{}
 	this.Label = label
 	this.Links = links
@@ -42,7 +42,7 @@ func NewLinkGroupWithDefaults() *LinkGroup {
 
 // GetLabel returns the Label field value
 func (o *LinkGroup) GetLabel() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
@@ -66,7 +66,7 @@ func (o *LinkGroup) SetLabel(v string) {
 
 // GetLinks returns the Links field value
 func (o *LinkGroup) GetLinks() []Link {
-	if o == nil {
+	if o == nil  {
 		var ret []Link
 		return ret
 	}

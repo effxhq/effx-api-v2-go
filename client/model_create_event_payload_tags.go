@@ -24,7 +24,7 @@ type CreateEventPayloadTags struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateEventPayloadTags(key string, value string) *CreateEventPayloadTags {
+func NewCreateEventPayloadTags(key string, value string, ) *CreateEventPayloadTags {
 	this := CreateEventPayloadTags{}
 	this.Key = key
 	this.Value = value
@@ -41,7 +41,7 @@ func NewCreateEventPayloadTagsWithDefaults() *CreateEventPayloadTags {
 
 // GetKey returns the Key field value
 func (o *CreateEventPayloadTags) GetKey() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
@@ -65,7 +65,7 @@ func (o *CreateEventPayloadTags) SetKey(v string) {
 
 // GetValue returns the Value field value
 func (o *CreateEventPayloadTags) GetValue() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}

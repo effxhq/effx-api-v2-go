@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Version** | **string** |  | 
 **Kind** | **string** |  | 
-**Spec** | [**TeamConfigurationSpec**](TeamConfigurationSpec.md) |  | 
+**Spec** | [**TeamConfigurationSpec**](TeamConfiguration_spec.md) |  | 
 
 ## Methods
 

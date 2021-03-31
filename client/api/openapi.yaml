@@ -840,6 +840,8 @@ components:
       additionalProperties: false
       example:
         service_name: service_name
+        integration:
+          name: name
         message: message
         title: title
         actions:
@@ -878,6 +880,8 @@ components:
         service_name:
           description: the service's name that this event belongs to
           type: string
+        integration:
+          $ref: '#/components/schemas/CreateEventPayload_integration'
       required:
       - message
       - title
@@ -1347,6 +1351,15 @@ components:
       - level
       - name
       - url
+      type: object
+    CreateEventPayload_integration:
+      example:
+        name: name
+      properties:
+        name:
+          type: string
+      required:
+      - name
       type: object
     TeamConfiguration_spec:
       example:

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Version** | **string** |  | 
 **Kind** | **string** |  | 
-**Spec** | [**ServiceConfigurationSpec**](ServiceConfigurationSpec.md) |  | 
+**Spec** | [**ServiceConfigurationSpec**](ServiceConfiguration_spec.md) |  | 
 
 ## Methods
 

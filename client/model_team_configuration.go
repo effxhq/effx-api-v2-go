@@ -25,7 +25,7 @@ type TeamConfiguration struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTeamConfiguration(version string, kind string, spec TeamConfigurationSpec) *TeamConfiguration {
+func NewTeamConfiguration(version string, kind string, spec TeamConfigurationSpec, ) *TeamConfiguration {
 	this := TeamConfiguration{}
 	this.Version = version
 	this.Kind = kind
@@ -43,7 +43,7 @@ func NewTeamConfigurationWithDefaults() *TeamConfiguration {
 
 // GetVersion returns the Version field value
 func (o *TeamConfiguration) GetVersion() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
@@ -67,7 +67,7 @@ func (o *TeamConfiguration) SetVersion(v string) {
 
 // GetKind returns the Kind field value
 func (o *TeamConfiguration) GetKind() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
@@ -91,7 +91,7 @@ func (o *TeamConfiguration) SetKind(v string) {
 
 // GetSpec returns the Spec field value
 func (o *TeamConfiguration) GetSpec() TeamConfigurationSpec {
-	if o == nil {
+	if o == nil  {
 		var ret TeamConfigurationSpec
 		return ret
 	}

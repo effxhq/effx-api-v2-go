@@ -25,7 +25,7 @@ type CreateEventPayloadActions struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateEventPayloadActions(level string, name string, url string) *CreateEventPayloadActions {
+func NewCreateEventPayloadActions(level string, name string, url string, ) *CreateEventPayloadActions {
 	this := CreateEventPayloadActions{}
 	this.Level = level
 	this.Name = name
@@ -43,7 +43,7 @@ func NewCreateEventPayloadActionsWithDefaults() *CreateEventPayloadActions {
 
 // GetLevel returns the Level field value
 func (o *CreateEventPayloadActions) GetLevel() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
@@ -67,7 +67,7 @@ func (o *CreateEventPayloadActions) SetLevel(v string) {
 
 // GetName returns the Name field value
 func (o *CreateEventPayloadActions) GetName() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
@@ -91,7 +91,7 @@ func (o *CreateEventPayloadActions) SetName(v string) {
 
 // GetUrl returns the Url field value
 func (o *CreateEventPayloadActions) GetUrl() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}

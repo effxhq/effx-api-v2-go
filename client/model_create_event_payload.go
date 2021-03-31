@@ -24,13 +24,14 @@ type CreateEventPayload struct {
 	Actions *[]CreateEventPayloadActions `json:"actions,omitempty"`
 	// the service's name that this event belongs to
 	ServiceName *string `json:"service_name,omitempty"`
+	Integration *CreateEventPayloadIntegration `json:"integration,omitempty"`
 }
 
 // NewCreateEventPayload instantiates a new CreateEventPayload object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateEventPayload(message string, title string) *CreateEventPayload {
+func NewCreateEventPayload(message string, title string, ) *CreateEventPayload {
 	this := CreateEventPayload{}
 	this.Message = message
 	this.Title = title
@@ -47,7 +48,7 @@ func NewCreateEventPayloadWithDefaults() *CreateEventPayload {
 
 // GetMessage returns the Message field value
 func (o *CreateEventPayload) GetMessage() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
@@ -71,7 +72,7 @@ func (o *CreateEventPayload) SetMessage(v string) {
 
 // GetTitle returns the Title field value
 func (o *CreateEventPayload) GetTitle() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
@@ -221,6 +222,38 @@ func (o *CreateEventPayload) SetServiceName(v string) {
 	o.ServiceName = &v
 }
 
+// GetIntegration returns the Integration field value if set, zero value otherwise.
+func (o *CreateEventPayload) GetIntegration() CreateEventPayloadIntegration {
+	if o == nil || o.Integration == nil {
+		var ret CreateEventPayloadIntegration
+		return ret
+	}
+	return *o.Integration
+}
+
+// GetIntegrationOk returns a tuple with the Integration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateEventPayload) GetIntegrationOk() (*CreateEventPayloadIntegration, bool) {
+	if o == nil || o.Integration == nil {
+		return nil, false
+	}
+	return o.Integration, true
+}
+
+// HasIntegration returns a boolean if a field has been set.
+func (o *CreateEventPayload) HasIntegration() bool {
+	if o != nil && o.Integration != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegration gets a reference to the given CreateEventPayloadIntegration and assigns it to the Integration field.
+func (o *CreateEventPayload) SetIntegration(v CreateEventPayloadIntegration) {
+	o.Integration = &v
+}
+
 func (o CreateEventPayload) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -240,6 +273,9 @@ func (o CreateEventPayload) MarshalJSON() ([]byte, error) {
 	}
 	if o.ServiceName != nil {
 		toSerialize["service_name"] = o.ServiceName
+	}
+	if o.Integration != nil {
+		toSerialize["integration"] = o.Integration
 	}
 	return json.Marshal(toSerialize)
 }

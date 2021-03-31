@@ -1,4 +1,4 @@
-module github.com/effxhq/effx-api-v2-go/client
+module github.com/effxhq/effx-api-v2/generated/go/server
 
 go 1.13
 

@@ -30,7 +30,7 @@ type ServiceConfigurationSpec struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServiceConfigurationSpec(name string, contact ContactInformation) *ServiceConfigurationSpec {
+func NewServiceConfigurationSpec(name string, contact ContactInformation, ) *ServiceConfigurationSpec {
 	this := ServiceConfigurationSpec{}
 	this.Name = name
 	this.Contact = contact
@@ -47,7 +47,7 @@ func NewServiceConfigurationSpecWithDefaults() *ServiceConfigurationSpec {
 
 // GetName returns the Name field value
 func (o *ServiceConfigurationSpec) GetName() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
@@ -103,7 +103,7 @@ func (o *ServiceConfigurationSpec) SetDescription(v string) {
 
 // GetContact returns the Contact field value
 func (o *ServiceConfigurationSpec) GetContact() ContactInformation {
-	if o == nil {
+	if o == nil  {
 		var ret ContactInformation
 		return ret
 	}

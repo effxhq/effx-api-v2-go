@@ -27,7 +27,7 @@ type ConfigurationFile struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewConfigurationFile(fileContents string) *ConfigurationFile {
+func NewConfigurationFile(fileContents string, ) *ConfigurationFile {
 	this := ConfigurationFile{}
 	this.FileContents = fileContents
 	return &this
@@ -43,7 +43,7 @@ func NewConfigurationFileWithDefaults() *ConfigurationFile {
 
 // GetFileContents returns the FileContents field value
 func (o *ConfigurationFile) GetFileContents() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}

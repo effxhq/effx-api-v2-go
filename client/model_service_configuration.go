@@ -25,7 +25,7 @@ type ServiceConfiguration struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServiceConfiguration(version string, kind string, spec ServiceConfigurationSpec) *ServiceConfiguration {
+func NewServiceConfiguration(version string, kind string, spec ServiceConfigurationSpec, ) *ServiceConfiguration {
 	this := ServiceConfiguration{}
 	this.Version = version
 	this.Kind = kind
@@ -43,7 +43,7 @@ func NewServiceConfigurationWithDefaults() *ServiceConfiguration {
 
 // GetVersion returns the Version field value
 func (o *ServiceConfiguration) GetVersion() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
@@ -67,7 +67,7 @@ func (o *ServiceConfiguration) SetVersion(v string) {
 
 // GetKind returns the Kind field value
 func (o *ServiceConfiguration) GetKind() string {
-	if o == nil {
+	if o == nil  {
 		var ret string
 		return ret
 	}
@@ -91,7 +91,7 @@ func (o *ServiceConfiguration) SetKind(v string) {
 
 // GetSpec returns the Spec field value
 func (o *ServiceConfiguration) GetSpec() ServiceConfigurationSpec {
-	if o == nil {
+	if o == nil  {
 		var ret ServiceConfigurationSpec
 		return ret
 	}
